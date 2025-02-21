@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejouice - Client Services</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: black;
+            color: white;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        .container {
+            min-height: 100vh;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+        }
+
+        .contact-btn {
+            border: 1px solid white;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .contact-btn:hover {
+            background: white;
+            color: black;
+            transform: scale(1.05);
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: bold;
+            letter-spacing: -0.05em;
+            line-height: 1;
+            opacity: 0;
+            transform: translateY(100px);
+        }
+
+        .hero-description {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: #9ca3af;
+            max-width: 48rem;
+            margin: 2rem auto;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .scroll-indicator {
+            display: flex;
+            justify-content: center;
+            opacity: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .scroll-indicator svg {
+            animation: bounce 2s infinite;
+        }
+
+        /* Client Section */
+        .clients {
+            padding: 8rem 2rem;
+        }
+
+        .client-card {
+            margin-bottom: 8rem;
+            opacity: 0;
+            transform: translateY(100px);
+        }
+
+        .client-inner {
+            position: relative;
+            height: 80vh;
+            overflow: hidden;
+            border-radius: 1rem;
+            cursor: pointer;
+        }
+
+        .client-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease-out;
+        }
+
+        .client-inner:hover .client-image {
+            transform: scale(1.05);
+        }
+
+        .client-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            transition: all 0.5s;
+        }
+
+        .client-inner:hover .client-overlay {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .client-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding: 3rem;
+            width: 100%;
+            transition: color 0.5s;
+        }
+
+        .client-inner:hover .client-content {
+            color: black;
+        }
+
+        .client-title {
+            font-size: clamp(2rem, 5vw, 4.5rem);
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .client-description {
+            font-size: clamp(1rem, 1.5vw, 1.25rem);
+            max-width: 36rem;
+            margin-bottom: 2rem;
+            line-height: 1.75;
+        }
+
+        .explore {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
+
+        .arrow-icon {
+            transition: transform 0.3s;
+        }
+
+        .client-inner:hover .arrow-icon {
+            transform: translate(4px, -4px);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 2rem 1rem;
+            }
+            
+            .clients {
+                padding: 4rem 1rem;
+            }
+
+            .client-content {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="header">
+                <h1 class="logo">REJOUICE</h1>
+                <button class="contact-btn">Contact Us</button>
+            </div>
+
+            <div class="hero-content">
+                <h2 class="hero-title">OUR CLIENTS</h2>
+                <p class="hero-description">
+                    We partner with forward-thinking brands to create digital experiences that inspire and transform
+                </p>
+            </div>
+
+            <div class="scroll-indicator">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Clients Section -->
+        <section class="clients" id="clients-section"></section>
+    </div>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        const clients = [
+            {
+                title: "Nike",
+                description: "Revolutionizing digital sports retail through immersive e-commerce experiences and innovative product launches.",
+                image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=2070"
+            },
+            {
+                title: "Apple",
+                description: "Creating seamless digital ecosystems that connect people with technology in meaningful and intuitive ways.",
+                image: "https://images.unsplash.com/photo-1491933382434-500287f9b54b?auto=format&fit=crop&q=80&w=2070"
+            },
+            {
+                title: "Tesla",
+                description: "Driving the future of sustainable energy through cutting-edge digital interfaces and user experiences.",
+                image: "img/model y.avif"
+            }
+        ];
+
+        // Render clients
+        const clientsSection = document.getElementById('clients-section');
+        clients.forEach(client => {
+            const clientHTML = `
+                <div class="client-card">
+                    <div class="client-inner">
+                        <img src="${client.image}" alt="${client.title}" class="client-image">
+                        <div class="client-overlay"></div>
+                        <div class="client-content">
+                            <h3 class="client-title">${client.title}</h3>
+                            <p class="client-description">${client.description}</p>
+                            <div class="explore">
+                                <span href="D:/Project_FSD_ind/index.html">View Case Study</span>
+                                <svg class="arrow-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            clientsSection.insertAdjacentHTML('beforeend', clientHTML);
+        });
+
+        // Animations
+        window.addEventListener('DOMContentLoaded', () => {
+            // Hero animations
+            gsap.to('.header', {
+                opacity: 1,
+                duration: 1,
+                ease: "power2.out"
+            });
+
+            gsap.to('.hero-title', {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                delay: 0.3,
+                ease: "power3.out"
+            });
+
+            gsap.to('.hero-description', {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                delay: 0.5,
+                ease: "power3.out"
+            });
+
+            gsap.to('.scroll-indicator', {
+                opacity: 1,
+                duration: 1,
+                delay: 0.7,
+                ease: "power2.out"
+            });
+
+            // Client cards animations
+            gsap.utils.toArray('.client-card').forEach((card, index) => {
+                gsap.to(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top bottom-=100',
+                        toggleActions: 'play none none reverse'
+                    },
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    delay: index * 0.2,
+                    ease: "power3.out"
+                });
+            });
+
+            // Smooth scroll for the entire page
+            gsap.to('#clients-section', {
+                scrollTrigger: {
+                    trigger: '#clients-section',
+                    start: 'top top',
+                    end: 'bottom bottom',
+                    scrub: 1
+                },
+                y: '30%',
+                ease: "none"
+            });
+        });
+    </script>
+</body>
+</html>

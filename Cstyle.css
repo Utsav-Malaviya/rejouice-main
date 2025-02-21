@@ -1,0 +1,362 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: slideUpAndOut 4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+.loading-text {
+    color: white;
+    font-size: 4rem;
+    font-weight: bold;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: textFade 3s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes slideUpAndOut {
+    0% { transform: translateY(100%); }
+    20%, 80% { transform: translateY(0); }
+    100% { transform: translateY(-100%); }
+}
+
+@keyframes textFade {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    20%, 50% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    80% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+}
+
+.min-h-screen {
+    opacity: 0;
+    animation: fadeInContent 1s ease forwards;
+    animation-delay: 3s;
+}
+
+@keyframes fadeInContent {
+    to { opacity: 1; }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.hero {
+    background: black;
+    color: white;
+    padding: 8rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 50%);
+}
+
+.hero h1 {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.hero p {
+    font-size: 1.25rem;
+    max-width: 36rem;
+    opacity: 0.9;
+    line-height: 1.8;
+}
+
+.contact-section {
+    padding: 6rem 0;
+    position: relative;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    margin-top: 2rem;
+}
+
+.contact-info {
+    padding: 3rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transform: translateY(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-info:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+}
+
+.contact-info h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 3rem;
+    color: #1f2937;
+    position: relative;
+}
+
+.contact-info h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: black;
+    border-radius: 2px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    transition: background-color 0.3s ease;
+}
+
+.info-item:hover {
+    background-color: #f8fafc;
+}
+
+.info-item:last-child {
+    margin-bottom: 0;
+}
+
+.icon-circle {
+    width: 3.5rem;
+    height: 3.5rem;
+    background-color: #dbeafe;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1.5rem;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.info-item:hover .icon-circle {
+    transform: scale(1.1);
+    background-color: #bfdbfe;
+}
+
+.icon-circle svg {
+    width: 1.75rem;
+    height: 1.75rem;
+    color: #2563eb;
+    transition: transform 0.3s ease;
+}
+
+.info-item:hover .icon-circle svg {
+    transform: scale(1.1);
+}
+
+.info-item h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #1f2937;
+}
+
+.info-item p {
+    color: #4b5563;
+    font-size: 1.1rem;
+}
+
+.contact-form {
+    padding: 3rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.75rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #f9fafb;
+}
+
+.form-group input:hover,
+.form-group textarea:hover {
+    background-color: #ffffff;
+    border-color: #d1d5db;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: BLACK;
+    box-shadow: 0 0 0 4px rgba(37,99,235,0.1);
+    background-color: #ffffff;
+}
+
+.submit-btn {
+    background: BLACK;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 0.75rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.2),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px black;
+}
+
+.submit-btn:hover::before {
+    left: 100%;
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 1.5rem;
+    }
+    
+    .hero h1 {
+        font-size: 3.5rem;
+    }
+    
+    .contact-grid {
+        gap: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 6rem 0;
+    }
+    
+    .hero h1 {
+        font-size: 3rem;
+    }
+    
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+    
+    .contact-info,
+    .contact-form {
+        padding: 2rem;
+    }
+    
+    .loading-text {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero p {
+        font-size: 1.1rem;
+    }
+    
+    .contact-info h2 {
+        font-size: 2rem;
+    }
+    
+    .info-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .icon-circle {
+        margin: 0 auto 1rem;
+    }
+}
